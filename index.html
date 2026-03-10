@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Curated Strategist | Deanna Maldonado</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f5f3f0;
+    --deep: #1a4d4d;
+    --gold: #2d7373;
+    --warm: #7a9d9d;
+    --light: #e8e5df;
+    --text: #2D2D2D;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--light);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 600; letter-spacing: 0.15em;
+    color: var(--deep); text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text); text-decoration: none; font-weight: 500;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    position: relative; overflow: hidden;
+  }
+  .hero-left {
+    background: var(--deep);
+    display: flex; flex-direction: column;
+    justify-content: center; padding: 8rem 5rem 8rem 8rem;
+    position: relative;
+  }
+  .hero-left::after {
+    content: '';
+    position: absolute; right: -40px; top: 0; bottom: 0;
+    width: 80px;
+    background: var(--deep);
+    clip-path: polygon(0 0, 0% 100%, 100% 50%);
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 2rem; font-weight: 500;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 400; line-height: 1.1;
+    color: var(--cream); margin-bottom: 0.5rem;
+  }
+  .hero-name em { font-style: italic; color: var(--gold); }
+  .hero-title {
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: rgba(245,240,232,0.5); margin-bottom: 3rem; font-weight: 400;
+  }
+  .hero-tagline {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-style: italic; font-weight: 400;
+    color: rgba(245,243,240,0.85); line-height: 1.5; margin-bottom: 3rem;
+    border-left: 2px solid var(--gold); padding-left: 1.5rem;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 1rem;
+    background: var(--gold); color: var(--deep);
+    padding: 1rem 2.5rem; text-decoration: none;
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    font-weight: 600; transition: all 0.3s; width: fit-content;
+  }
+  .hero-cta:hover { background: var(--cream); transform: translateX(4px); }
+
+  .hero-right {
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    padding: 8rem 6rem 8rem 8rem; position: relative;
+  }
+  .hero-right-content { max-width: 420px; }
+  .hero-stat-block {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  .stat { border-top: 1px solid var(--gold); padding-top: 1rem; }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 400; color: var(--deep); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--warm); margin-top: 0.4rem; font-weight: 500;
+  }
+  .hero-intro {
+    font-size: 0.95rem; line-height: 1.9; color: #555;
+    font-weight: 300;
+  }
+  .hero-intro strong { color: var(--deep); font-weight: 600; }
+
+  /* MARQUEE */
+  .marquee-bar {
+    background: var(--deep); padding: 1rem 0; overflow: hidden;
+    position: relative;
+  }
+  .marquee-track {
+    display: flex; gap: 4rem;
+    animation: marquee 20s linear infinite; white-space: nowrap;
+  }
+  .marquee-item {
+    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; flex-shrink: 0;
+  }
+  .marquee-dot { color: rgba(201,168,76,0.4); }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* SECTION BASE */
+  section { padding: 8rem 8rem; }
+  .section-label {
+    font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem; font-weight: 600;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 400; line-height: 1.15; color: var(--deep);
+  }
+  .section-title em { font-style: italic; }
+
+  /* ABOUT */
+  .about { background: var(--light); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 8rem; align-items: start; margin-top: 5rem; }
+  .about-left { position: sticky; top: 10rem; }
+  .about-brands {
+    margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem;
+  }
+  .brand-pill {
+    display: inline-block; border: 1px solid rgba(201,168,76,0.4);
+    padding: 0.5rem 1.2rem; font-size: 0.65rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--warm); font-weight: 500;
+    width: fit-content;
+  }
+  .about-body { }
+  .about-body p {
+    font-size: 1rem; line-height: 2; color: #555; font-weight: 300;
+    margin-bottom: 2rem;
+  }
+  .about-body p strong { color: var(--deep); font-weight: 600; }
+  .about-pull {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-style: italic; font-weight: 400;
+    color: var(--deep); line-height: 1.4;
+    border-left: 3px solid var(--gold); padding-left: 2rem;
+    margin: 3rem 0;
+  }
+
+  /* SERVICES */
+  .services { background: var(--deep); }
+  .services .section-title { color: var(--cream); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+    margin-top: 5rem;
+  }
+  .service-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 3rem; position: relative; overflow: hidden;
+    transition: all 0.4s;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--gold);
+    transition: height 0.4s;
+  }
+  .service-card:hover::before { height: 100%; }
+  .service-card:hover { background: rgba(201,168,76,0.05); }
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; font-weight: 400; color: rgba(45,115,115,0.2);
+    line-height: 1; margin-bottom: 1.5rem;
+  }
+  .service-name {
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem; font-weight: 600;
+  }
+  .service-desc {
+    font-size: 0.9rem; line-height: 1.8; color: rgba(245,240,232,0.6);
+    font-weight: 300;
+  }
+
+  /* CTA BAND */
+  .cta-band {
+    background: var(--deep); padding: 6rem 8rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cta-band-left { }
+  .cta-band h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3vw, 3rem); font-weight: 400;
+    color: var(--cream); line-height: 1.2;
+  }
+  .cta-band p {
+    font-size: 0.85rem; color: rgba(245,243,240,0.8);
+    margin-top: 1rem; font-weight: 300;
+  }
+  .cta-btn-dark {
+    background: var(--cream); color: var(--deep);
+    padding: 1.2rem 3rem; text-decoration: none;
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    font-weight: 600; transition: all 0.3s; white-space: nowrap;
+    flex-shrink: 0; margin-left: 4rem;
+  }
+  .cta-btn-dark:hover { background: #f5f3f0; color: var(--deep); transform: translateX(4px); }
+
+  /* CONTACT */
+  .contact { background: var(--light); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; margin-top: 5rem; }
+  .contact-info { }
+  .contact-info p {
+    font-size: 0.95rem; line-height: 1.9; color: #555;
+    font-weight: 300; margin-bottom: 3rem;
+  }
+  .contact-detail {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .contact-detail-label {
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; width: 5rem;
+  }
+  .contact-detail-value {
+    font-size: 0.9rem; color: var(--deep); font-weight: 400;
+  }
+  .contact-form { }
+  .form-group { margin-bottom: 2rem; }
+  .form-group label {
+    display: block; font-size: 0.6rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--warm);
+    margin-bottom: 0.6rem; font-weight: 600;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%; background: transparent;
+    border: none; border-bottom: 1px solid rgba(139,111,71,0.3);
+    padding: 0.8rem 0; font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.3s; font-weight: 300;
+    appearance: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-bottom-color: var(--gold); }
+  .form-group textarea { resize: none; height: 100px; }
+  .form-submit {
+    background: var(--deep); color: var(--cream);
+    border: none; padding: 1rem 3rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    font-weight: 600; cursor: pointer; transition: all 0.3s;
+  }
+  .form-submit:hover { background: var(--gold); color: var(--deep); }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep); padding: 4rem 8rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 600; letter-spacing: 0.15em;
+    color: var(--cream); text-transform: uppercase;
+  }
+  .footer-tagline {
+    font-size: 0.65rem; letter-spacing: 0.2em; font-style: italic;
+    color: var(--gold); margin-top: 0.3rem;
+  }
+  .footer-right {
+    font-size: 0.65rem; letter-spacing: 0.15em;
+    color: rgba(245,240,232,0.3); text-align: right;
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 8rem 2.5rem 4rem; }
+    .hero-left::after { display: none; }
+    .hero-right { padding: 4rem 2.5rem; }
+    section { padding: 5rem 2.5rem; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-left { position: static; }
+    .services-grid { grid-template-columns: 1fr; }
+    .cta-band { flex-direction: column; gap: 2rem; padding: 4rem 2.5rem; }
+    .cta-btn-dark { margin-left: 0; }
+    footer { flex-direction: column; gap: 1.5rem; padding: 3rem 2.5rem; }
+    .footer-right { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">The Curated Strategist</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Let's Talk</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Growth Strategy & Business Transformation</p>
+    <h1 class="hero-name">Deanna<br><em>Maldonado</em></h1>
+    <p class="hero-title">Founder & Principal Strategist</p>
+    <p class="hero-tagline">"Growth by Design.<br>Transformation by Experience."</p>
+    <a href="#contact" class="hero-cta">Start a Conversation →</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-content">
+      <div class="hero-stat-block">
+        <div class="stat">
+          <div class="stat-number">20+</div>
+          <div class="stat-label">Years Driving Enterprise Growth</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">300+</div>
+          <div class="stat-label">Person Sales Teams Scaled</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">$500K</div>
+          <div class="stat-label">Performance Contract Delivered</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">Multi</div>
+          <div class="stat-label">Industry & Multi-State Experience</div>
+        </div>
+      </div>
+      <p class="hero-intro">
+        I help service-based businesses and enterprises <strong>build revenue systems that actually stick</strong> — with AI-driven strategy, sales culture transformation, and business development built from two decades of doing it from the inside.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span class="marquee-item">Revenue Systems Design</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">AI Tool Integration</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Sales Culture Transformation</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Business Development</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Go-To-Market Strategy</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Talent Acquisition & Onboarding</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Virtual Assistant & Automation</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Enterprise Growth Consulting</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Revenue Systems Design</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">AI Tool Integration</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Sales Culture Transformation</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Business Development</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Go-To-Market Strategy</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Talent Acquisition & Onboarding</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Virtual Assistant & Automation</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Enterprise Growth Consulting</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <p class="section-label fade-up">The Story Behind the Strategy</p>
+  <h2 class="section-title fade-up">Built from the <em>inside out.</em></h2>
+  <div class="about-grid">
+    <div class="about-left fade-up">
+      <p style="font-size:0.85rem;line-height:1.8;color:#777;font-weight:300;">I didn't stumble into growth strategy. I earned it over two decades inside Fortune 500 enterprises and high-growth organizations — building what didn't exist yet.</p>
+      <div class="about-brands">
+        <span class="brand-pill">Enterprise Sales Systems</span>
+        <span class="brand-pill">AI & Automation Strategy</span>
+        <span class="brand-pill">Business Development</span>
+        <span class="brand-pill">Multi-State Operations</span>
+        <span class="brand-pill">Talent Acquisition</span>
+      </div>
+    </div>
+    <div class="about-body fade-up">
+      <p>Over <strong>20 years</strong> across large-scale enterprises, I was the person organizations called when they needed something built that had never been built before. I helped launch experimental inbound sales channels that scaled from small pilot teams to <strong>over 300 reps across two shifts</strong> — becoming some of the most productive sales departments in their organizations.</p>
+      <p>When rapid growth created a dangerous gap between classroom training and live sales performance, I designed and launched a hands-on sales coaching academy that <strong>dramatically reduced new hire churn</strong>, saved significant revenue in turnover costs, and became a permanent fixture in the organization.</p>
+      <p>In the financial services space, I was brought in by a <strong>multi-state mortgage company</strong> as a business development consultant — scouting and hiring brokers across markets while simultaneously building and running their <strong>virtual bot assistant</strong> to streamline operations and client engagement. Delivering under a <strong>$500K performance contract</strong> gave me a deep appreciation for how AI, when implemented thoughtfully, can transform how a business scales.</p>
+      <div class="about-pull">"I know what it feels like to be inside a legacy organization that has to reinvent itself — under pressure, at scale, with real stakes."</div>
+      <p>Today I bring that same builder's mindset to service-based businesses and enterprises of all kinds. Not someone who can demo a tool. Someone who can <strong>transform a team, architect a system, and bring an entire organization along for the journey.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <p class="section-label" style="color:rgba(201,168,76,0.7)">What I Build</p>
+  <h2 class="section-title">Where strategy<br>meets <em>execution.</em></h2>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <div class="service-num">01</div>
+      <div class="service-name">Revenue Systems Design</div>
+      <p class="service-desc">Align your sales, marketing, and operations into one cohesive growth engine. Built for service-based businesses and enterprises ready to scale with intention.</p>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-num">02</div>
+      <div class="service-name">AI & Automation Integration</div>
+      <p class="service-desc">Strategic adoption of AI tools and virtual assistants your team will actually use — from selection and implementation to sustained performance and adoption.</p>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-num">03</div>
+      <div class="service-name">Sales Culture & Talent Development</div>
+      <p class="service-desc">Reduce churn, cut ramp time, and build a sales culture that retains top performers. Includes broker and talent scouting for multi-market expansion.</p>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-num">04</div>
+      <div class="service-name">Business Development & GTM Strategy</div>
+      <p class="service-desc">For growing enterprises ready to enter new markets or scale intentionally. Positioning, sequencing, and systems designed for growth that sticks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="cta-band-left">
+    <h2>Ready to build something<br><em>that actually sticks?</em></h2>
+    <p>Let's start with a complimentary 30-minute Growth Conversation — no pitch, just strategy.</p>
+  </div>
+  <a href="#contact" class="cta-btn-dark">Book a Growth Conversation</a>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="section-label fade-up">Let's Connect</p>
+  <h2 class="section-title fade-up">Start the<br><em>conversation.</em></h2>
+  <div class="contact-grid">
+    <div class="contact-info fade-up">
+      <p>Whether you're navigating a growth inflection point, building out a sales team, or ready to integrate AI into your revenue strategy — I'd love to hear where you're headed.</p>
+      <div class="contact-detail">
+        <span class="contact-detail-label">Website</span>
+        <span class="contact-detail-value">curatedstrategist.com</span>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-detail-label">Based</span>
+        <span class="contact-detail-value">Orlando, Florida</span>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-detail-label">Serving</span>
+        <span class="contact-detail-value">Service-Based Businesses & Enterprises Nationwide</span>
+      </div>
+    </div>
+    <div class="contact-form fade-up">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="First & Last Name">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@company.com">
+      </div>
+      <div class="form-group">
+        <label>Company / Brand</label>
+        <input type="text" placeholder="Your organization">
+      </div>
+      <div class="form-group">
+        <label>What brings you here?</label>
+        <select>
+          <option value="" disabled selected>Select a topic</option>
+          <option>Revenue Systems Design</option>
+          <option>AI & Automation Integration</option>
+          <option>Sales Culture & Talent Development</option>
+          <option>Business Development & GTM Strategy</option>
+          <option>General Inquiry</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tell me more</label>
+        <textarea placeholder="What are you building? Where are you stuck?"></textarea>
+      </div>
+      <button class="form-submit">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">The Curated Strategist</div>
+    <div class="footer-tagline">Growth by Design. Transformation by Experience.</div>
+  </div>
+  <div class="footer-right">
+    © 2025 The Curated Strategist<br>
+    Deanna Maldonado | Orlando, FL
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
